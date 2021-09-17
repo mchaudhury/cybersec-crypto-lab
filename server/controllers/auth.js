@@ -37,7 +37,7 @@ module.exports = {
     };
     users.push(userObj);
     let userToReturn = { ...userObj };
-    //delete userToReturn.passwordHash;
+    delete userToReturn.passwordHash;
     res.status(200).send(userToReturn);
     console.log("Registering User");
     //console.log(users);
