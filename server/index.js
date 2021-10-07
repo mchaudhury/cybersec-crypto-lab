@@ -1,17 +1,15 @@
-const express = require('express')
-const cors = require('cors')
+const express = require("express");
+const cors = require("cors");
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-const {
-    login,
-    register
-} = require('./controllers/auth')
+const { login, register, getWeather } = require("./controllers/auth");
 
-app.post(`/api/login`, login)
-app.post(`/api/register`, register)
+app.post(`/api/login`, login);
+app.post(`/api/register`, register);
+app.get("/api/weather/:city", getWeather);
 
-app.listen(4004, () => console.log(`running on 4004`))
+app.listen(4004, () => console.log(`running on 4004`));

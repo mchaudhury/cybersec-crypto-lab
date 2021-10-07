@@ -1,14 +1,14 @@
-const userContainer = document.querySelector("#user-info");
+const userContainerRegis = document.querySelector("#user-info");
+const userContainerLogin = document.querySelector("#user-info-login");
 const loginForm = document.querySelector("#login-form");
 const registerForm = document.querySelector("#register-form");
-
 const baseURL = `http://localhost:4004/api`;
 
 const login = (body) =>
   axios
     .post(`${baseURL}/login`, body)
     .then((res) => {
-      createUserCard(res.data);
+      createUserCardLogin(res.data);
       alert("Log in successful!");
     })
     .catch((err) => {
@@ -19,7 +19,7 @@ const register = (body) =>
   axios
     .post(`${baseURL}/register`, body)
     .then((res) => {
-      createUserCard(res.data);
+      createUserCardRegis(res.data);
     })
     .catch((err) => {
       console.log(err);
@@ -76,18 +76,32 @@ function registerSubmitHandler(e) {
   password2.value = "";
 }
 
-function createUserCard(data) {
-  userContainer.innerHTML = "";
-  const userCard = document.createElement("div");
-  userCard.classList.add("user-card");
+function createUserCardRegis(data) {
+  userContainerRegis.innerHTML = "";
+  const userCardRegis = document.createElement("div");
+  userCardRegis.classList.add("user-card");
 
-  userCard.innerHTML = `<p class="username">Username: ${data.username}</p>
+  userCardRegis.innerHTML = `<p class="username">Username: ${data.username}</p>
     <p class="email">Email: ${data.email}</p>
     <p class="first-name">First Name: ${data.firstName}</p>
-    <p class="last-name">Last Name: ${data.lastName}</p>
+    <p class="last-name">Last Name: ${data.lastName}</p>`;
+
+  userContainerRegis.appendChild(userCardRegis);
+}
+
+function createUserCardLogin(data) {
+  userContainerLogin.innerHTML = "";
+  const userCardLogin = document.createElement("div");
+  userCardLogin.classList.add("user-card-2");
+
+  userCardLogin.innerHTML = `<p class="username">${data.username}</p>
+    <p class="message">WELCOME ${data.firstName}</p>
+    
+    
+    <a href="userpage.html">ENTER</a>
     `;
 
-  userContainer.appendChild(userCard);
+  userContainerLogin.appendChild(userCardLogin);
 }
 
 loginForm.addEventListener("submit", loginSubmitHandler);
